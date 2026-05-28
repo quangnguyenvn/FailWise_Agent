@@ -1,0 +1,47 @@
+1
+00:00:00,000 --> 00:00:05,000
+FailWise Agent is a focused failure-aware AgentOps dashboard for resilient AI agents.
+
+2
+00:00:05,000 --> 00:00:13,000
+Most observability tools only show what happened. FailWise shows where the agent failed and why it matters.
+
+3
+00:00:13,000 --> 00:00:20,000
+It also shows recovery policy, confidence impact, and what operators should fix next.
+
+4
+00:00:20,000 --> 00:00:26,000
+Here is the default task: investigate why checkout errors increased in the last hour.
+
+5
+00:00:26,000 --> 00:00:34,000
+In the normal deterministic run, the graph stays green from planning to MCP, LLM, and final answer.
+
+6
+00:00:34,000 --> 00:00:42,000
+Now we simulate an MCP timeout. The MCP node fails, the diagnoser classifies it, and recovery uses trusted cache fallback.
+
+7
+00:00:42,000 --> 00:00:50,000
+The final answer is still useful, but confidence is downgraded because live context was unavailable.
+
+8
+00:00:50,000 --> 00:00:59,000
+Next is the live DeepSeek provider probe. If the provider fails, FailWise marks an LLM provider failure and routes to fallback.
+
+9
+00:00:59,000 --> 00:01:08,000
+Clicking any node shows input, output, latency, errors, diagnosis, and recovery action.
+
+10
+00:01:08,000 --> 00:01:15,000
+The full run log gives a timestamped trace of tool calls, failures, recovery policy, and confidence changes.
+
+11
+00:01:15,000 --> 00:01:23,000
+In a cache miss with no trusted context, FailWise refuses to invent an incident answer.
+
+12
+00:01:23,000 --> 00:01:30,000
+FailWise turns hidden agent failures into diagnosis, recovery, confidence impact, safe refusal, and operator remediation.
