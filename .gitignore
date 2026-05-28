@@ -3,3 +3,10 @@ dist/
 .env
 .env.*
 !.env.example
+submission/*.mp4
+submission/*.png
+submission/*.jpg
+submission/demo-frames*/
+submission/demo-frames-final*/
+submission/demo-frames-final2*/
+submission/demo-frames-final3-*/
