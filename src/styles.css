@@ -223,9 +223,15 @@ button:disabled {
   min-width: 0;
 }
 
+.primary-workspace {
+  position: relative;
+  z-index: 1;
+}
+
 .inspector-stack {
   position: sticky;
   top: 16px;
+  z-index: 20;
 }
 
 .run-overview-grid {
@@ -341,11 +347,14 @@ select:disabled {
 }
 
 .graph-panel {
+  position: relative;
+  z-index: 0;
   min-width: 0;
 }
 
 .graph-shell {
   position: relative;
+  z-index: 0;
   height: min(660px, calc(100vh - 250px));
   min-height: 500px;
 }
@@ -396,9 +405,16 @@ select:disabled {
 }
 
 .react-flow {
+  z-index: 0;
   background:
     linear-gradient(180deg, rgba(249, 251, 255, 0.92), rgba(239, 246, 255, 0.76)),
     #f8fafc;
+}
+
+.react-flow__renderer,
+.react-flow__zoompane,
+.react-flow__pane {
+  z-index: 0;
 }
 
 .react-flow__attribution {
@@ -798,7 +814,8 @@ dd,
 .modal-backdrop {
   position: fixed;
   inset: 0;
-  z-index: 10000;
+  isolation: isolate;
+  z-index: 2147483647;
   display: grid;
   place-items: center;
   padding: 24px;
