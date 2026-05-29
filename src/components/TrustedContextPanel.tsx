@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import type { ReactNode } from 'react';
 import { createPortal } from 'react-dom';
 import type { TrustedContextBackup } from '../types';
@@ -12,6 +12,14 @@ export function TrustedContextPanel({ backup }: TrustedContextPanelProps) {
   const statusClass = backup.backupStatus.toLowerCase().replace(/\s+/g, '-');
   const trustClass = backup.evidenceTrust.toLowerCase().replace(/\s+/g, '-');
   const snapshot = backup.snapshotDetail;
+
+  useEffect(() => {
+    document.body.classList.toggle('snapshot-modal-open', isSnapshotOpen);
+
+    return () => {
+      document.body.classList.remove('snapshot-modal-open');
+    };
+  }, [isSnapshotOpen]);
 
   return (
     <>
