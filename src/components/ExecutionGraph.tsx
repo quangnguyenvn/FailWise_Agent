@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
+import type { WheelEvent } from 'react';
 import ReactFlow, {
   Background,
   Controls,
@@ -34,6 +35,17 @@ export function ExecutionGraph({ run, selectedNodeId, onSelectNode }: ExecutionG
     onSelectNode(node.id as GraphNodeId);
   };
 
+  const handleGraphWheel = (event: WheelEvent<HTMLDivElement>) => {
+    if (event.ctrlKey || event.metaKey) {
+      return;
+    }
+
+    event.preventDefault();
+    event.stopPropagation();
+    setIsGraphInteractive(false);
+    window.scrollBy({ left: event.deltaX, top: event.deltaY, behavior: 'auto' });
+  };
+
   return (
     <section className="panel graph-panel">
       <div className="panel-header">
@@ -54,10 +66,11 @@ export function ExecutionGraph({ run, selectedNodeId, onSelectNode }: ExecutionG
       <div
         className={`graph-shell ${isGraphInteractive ? 'graph-interactive' : ''}`}
         onMouseDownCapture={() => setIsGraphInteractive(true)}
+        onWheelCapture={handleGraphWheel}
         onMouseLeave={() => setIsGraphInteractive(false)}
       >
         <div className="graph-interaction-hint">
-          {isGraphInteractive ? 'Graph controls active' : 'Click graph to zoom or drag'}
+          {isGraphInteractive ? 'Drag graph or use controls' : 'Click graph to drag; wheel scrolls page'}
         </div>
         <ReactFlow
           nodes={nodes.map((node) => ({
@@ -70,7 +83,9 @@ export function ExecutionGraph({ run, selectedNodeId, onSelectNode }: ExecutionG
           onEdgesChange={onEdgesChange}
           onNodeClick={handleNodeClick}
           fitView
-          zoomOnScroll={isGraphInteractive}
+          zoomOnScroll={false}
+          zoomOnPinch
+          zoomOnDoubleClick={isGraphInteractive}
           panOnDrag={isGraphInteractive}
           nodesDraggable={isGraphInteractive}
           panOnScroll={false}

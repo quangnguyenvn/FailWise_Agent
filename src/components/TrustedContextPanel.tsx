@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import type { ReactNode } from 'react';
+import { createPortal } from 'react-dom';
 import type { TrustedContextBackup } from '../types';
 
 interface TrustedContextPanelProps {
@@ -52,7 +53,8 @@ export function TrustedContextPanel({ backup }: TrustedContextPanelProps) {
         </div>
       </section>
 
-      {isSnapshotOpen && (
+      {isSnapshotOpen &&
+        createPortal(
         <div className="modal-backdrop" role="presentation" onClick={() => setIsSnapshotOpen(false)}>
           <section
             className="snapshot-modal"
@@ -111,7 +113,8 @@ export function TrustedContextPanel({ backup }: TrustedContextPanelProps) {
               <p>{snapshot.safeToReuseReason}</p>
             </SnapshotSection>
           </section>
-        </div>
+        </div>,
+        document.body,
       )}
     </>
   );

@@ -30,13 +30,14 @@ function deepSeekProxyPlugin(apiKey: string | undefined, model: string): Plugin 
 
         const startedAt = Date.now();
 
-        if (!apiKey) {
+        if (!apiKey || apiKey === 'false') {
           sendJson(res, 200, {
             ok: false,
             model,
             latencyMs: Date.now() - startedAt,
             failureCase: 'LLM_PROVIDER_FAILURE',
-            errorMessage: 'DEEPSEEK_API_KEY is missing in the local server environment.',
+            errorMessage:
+              'DEEPSEEK_API_KEY is not configured for live provider calls. Using the failure-aware recovery path instead.',
           });
           return;
         }
