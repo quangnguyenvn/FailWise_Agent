@@ -8,6 +8,9 @@ export default defineConfig(({ mode }) => {
 
   return {
     cacheDir: 'node_modules/.vite-recording',
+    preview: {
+      allowedHosts: true,
+    },
     plugins: [react(), deepSeekProxyPlugin(env.DEEPSEEK_API_KEY, env.DEEPSEEK_MODEL || 'deepseek-chat')],
   };
 });
